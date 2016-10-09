@@ -1,183 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
-  <title>Android EditText话题功能 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android EditText话题功能">
-<meta property="og:url" content="http://yoursite.com/2016/10/09/Android-EditText话题功能/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
-<meta property="og:updated_time" content="2016-10-09T03:16:06.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android EditText话题功能">
-<meta name="twitter:description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
+extends partial/layout
 
-</head>
+block site_title
+    != page.title + " · " + config.title
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-Android-EditText话题功能" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/10/09/Android-EditText话题功能/" class="article-date">
-  <time datetime="2016-10-09T03:13:15.000Z" itemprop="datePublished">2016-10-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Android EditText话题功能
-    </h1>
-  
+block description
+    - var desc = page.desc || page.title + ' - ' + config.author;
+    meta(name="description", content=desc)
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。</p>
-<p>代码例子:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">MyTextWatcher textWatcher;</div><div class="line">EditText mEtContent = (EditText) findViewById(R.id.et_content);</div><div class="line">textWatcher = new MyTextWatcher();</div><div class="line">mEtContent.addTextChangedListener(textWatcher);</div><div class="line"></div><div class="line">private class MyTextWatcher implements TextWatcher() &#123;</div><div class="line">  @Override</div><div class="line">  public void beforeTextChanged(CharSequence s, int start, int count, int after) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void onTextChanged(CharSequence s, int start, int before, int count) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void afterTextChanged(Editable s)&#123;</div><div class="line">      mEtContent.removeTextChangedListener(textWatcher);</div><div class="line">      TopicUtils.textviewSpan(context, mEtContent, s.toString());</div><div class="line">      mEtContent.addTextChangedListener(textWatcher);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>TopicUtils.textviewSpan();这个方法就是为话题改变颜色和添加点击事件。<br>官网上讲It is legitimate to make further changes to s<br> from this callback, but be careful not to get yourself into an infinite loop, because any changes you make will cause this method to be called again recursively.意思是在afterTextChanged里面对s进行进一步的改变是合法的，但是要小心进入死循环，因为对s的改动会使afterTextChanged方法再次被回调。<br>所以在TopicUtils.textviewSpan()执行之前removeTextChangedListener ,在执行之后重新addTextChangedListener()。<br>ok，当我以为万事大吉的时候，有bug来了。原因是部分手机在使用系统的中文输入法时，使用拼音全键这种方式时，每次点击英文字母但是没有选择词语推荐(candidates)的时候都会触发afterTextChanged这个方法。解决办法如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">private boolean canEdit = true;</div><div class="line">private class MyTextWatcher implements TextWatcher() &#123;</div><div class="line">  @Override</div><div class="line">  public void beforeTextChanged(CharSequence s, int start, int count, int after) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void onTextChanged(CharSequence s, int start, int before, int count) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void afterTextChanged(Editable s)&#123;</div><div class="line">      if (canEdit) &#123;</div><div class="line">            canEdit = false;</div><div class="line">            mEtContent.removeTextChangedListener(textWatcher);</div><div class="line">            TopicUtils.textviewSpan(context, mEtContent, s.toString());</div><div class="line">            mEtContent.addTextChangedListener(textWatcher);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+block container
+    include mixins/post
+    +post(page)
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/09/Android-EditText话题功能/" data-id="ciu226l1800005wxj1h2ra5en" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-  
-</article>
+block pagination
+    include mixins/paginator
+    +post()
+    include partial/comment
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2016/10/09/Android-EditText话题功能/">Android EditText话题功能</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
-</body>
-</html>
+block copyright
+    include partial/copyright

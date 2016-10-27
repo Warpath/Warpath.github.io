@@ -239,6 +239,217 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/26/Fragment生命周期（二）/" itemprop="url">
+                  Fragment生命周期（二）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-26T19:02:50+08:00" content="2016-10-26">
+              2016-10-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>将上文中的Fragment放在Activity中后，我们来观察它的生命周期:<br>当Activity加载该Fragment时:</p>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161026-0@2x.png" alt=""><br>启动一个对话框风格的Activity，Fragment进入暂停状态:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161026-1@2x.png" alt=""><br>关闭对话框风格的Activity，将再次进入运行状态:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161026-2@2x.png" alt=""><br>用另外一个Fragment替换当前Fragment时，执行如下代码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">SecondFragment secondFragment = new SecondFragment();</div><div class="line">getFragmentManager().beginTransaction().replace(R.id.fragment_container, secondFragment).commit();</div></pre></td></tr></table></figure>
+<p>LogCat的输出如下:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161027-0@2x.png" alt=""><br>可以看到此时被替换的Fragment回调了onDestroy()和onDetach()方法。说明此Fragment被回收掉了。<br>如果我们不想Fragment被销毁，需要如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SecondFragment secondFragment = new SecondFragment();</div><div class="line">getFragmentManager().beginTransaction().replace(R.id.fragment_container, secondFragment)</div><div class="line">                .addToBackStack(null)</div><div class="line">                .commit();</div></pre></td></tr></table></figure>
+<p>上面代码替换Fragment，并将它加入Back栈中，此时该Fragment虽然并不可见，但它并未被销毁。<br>点击替换时:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161027-1@2x.png" alt=""><br>点击返回键，该Fragment将会再次显示出来:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161027-2@2x.png" alt=""><br>当点击退出按钮退出当前Activity时，Fragment也被销毁。<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161027-3@2x.png" alt=""></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/26/Fragment生命周期(一)/" itemprop="url">
+                  Fragment生命周期（一）
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-26T18:40:05+08:00" content="2016-10-26">
+              2016-10-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Activity的生命周期比较熟悉，但是Fragment的生命周期是什么样呢？<br>和Activity一样，Fragment也存在如下状态:</p>
+<ul>
+<li>活动状态:Fragment位于前台，用户可见，可以获得焦点</li>
+<li>暂停状态:Fragment位于前台，该Fragment依然可见，不能获得焦点</li>
+<li>停止状态:该Fragment不可见，失去焦点</li>
+<li>销毁状态:该Fragment被完全删除，或该Fragment所在Activity被结束<br>此外还有一些回调方法和Activity一样:</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">       super.onCreate(savedInstanceState);</div><div class="line">       Log.d(TAG, &quot;---onCreate---&quot;);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   @Override</div><div class="line">   public void onStart() &#123;</div><div class="line">       super.onStart();</div><div class="line">       Log.d(TAG, &quot;---onStart---&quot;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   @Override</div><div class="line">   public void onResume() &#123;</div><div class="line">       super.onResume();</div><div class="line">       Log.d(TAG, &quot;---onResume---&quot;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   @Override</div><div class="line">   public void onPause() &#123;</div><div class="line">       super.onPause();</div><div class="line">       Log.d(TAG, &quot;---onPause---&quot;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   @Override</div><div class="line">   public void onStop() &#123;</div><div class="line">       super.onStop();</div><div class="line">       Log.d(TAG, &quot;---onStop---&quot;);</div><div class="line">   &#125;</div><div class="line">   </div><div class="line">   @Override</div><div class="line">   public void onDestroy() &#123;</div><div class="line">       super.onDestroy();</div><div class="line">       Log.d(TAG, &quot;---onDestroy---&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>另外多了几个回调：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public void onAttach(Activity activity) &#123;</div><div class="line">       super.onAttach(activity);</div><div class="line">       Log.d(TAG, &quot;---onAttach--&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>该Fragment被添加到Activity时被回调。该方法只会被调用一次。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) &#123;</div><div class="line">       Log.d(TAG, &quot;---onCreateView---&quot;);</div><div class="line">       TextView tv = new TextView(getActivity());</div><div class="line">       tv.setGravity(Gravity.CENTER_HORIZONTAL);</div><div class="line">       tv.setText(&quot;测试Fragment&quot;);</div><div class="line">       tv.setTextSize(40);</div><div class="line">       return tv;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>每次创建、绘制该Fragment的View组件时回调改方法，Fragment将会显示该方法返回的View。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public void onActivityCreated(Bundle savedInstanceState) &#123;</div><div class="line">       super.onActivityCreated(savedInstanceState);</div><div class="line">       Log.d(TAG, &quot;---onActivityCreated--&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>当Fragment所在的Activity被启动完成后回调该方法。是Activity被启动，而不是Fragment。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public void onDestroyView() &#123;</div><div class="line">       super.onDestroyView();</div><div class="line">       Log.d(TAG, &quot;---onDestroyView---&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>销毁Fragment包含的View组件时被回调。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">   public void onDetach() &#123;</div><div class="line">       super.onDetach();</div><div class="line">       Log.d(TAG, &quot;---onDetach---&quot;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>将该Fragment从Activity中被删除、被替换完成时回调该方法，onDestroy()方法后一定会调用onDetach()方法。此方法只会被调用一次。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/18/LimitEditText遇到的问题/" itemprop="url">
                   LimitEditText遇到的问题
                 </a>
@@ -457,7 +668,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-count">4</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

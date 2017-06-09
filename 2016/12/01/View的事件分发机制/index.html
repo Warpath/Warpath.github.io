@@ -84,15 +84,25 @@
 
 
 
-<meta name="description" content="心有猛虎，细嗅蔷薇">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Warpath's blog">
-<meta property="og:url" content="http://yoursite.com/archives/2016/10/index.html">
+<meta name="description" content="View的基本知识
+1、位置属性
+View有四个位置参数，分别是left、top、right、bottom。这四个参数相对于父控件。通过getLeft() 、getTop()、getRight()、  getBottom()方法获取。分别代表View左上角离左边、上边的距离和View右下角离上边、左边的距离。
+2、点击事件MotionEvent就是点击屏幕之后Android系统需要处理的对象。典型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="View的事件分发机制">
+<meta property="og:url" content="http://yoursite.com/2016/12/01/View的事件分发机制/index.html">
 <meta property="og:site_name" content="Warpath's blog">
-<meta property="og:description" content="心有猛虎，细嗅蔷薇">
+<meta property="og:description" content="View的基本知识
+1、位置属性
+View有四个位置参数，分别是left、top、right、bottom。这四个参数相对于父控件。通过getLeft() 、getTop()、getRight()、  getBottom()方法获取。分别代表View左上角离左边、上边的距离和View右下角离上边、左边的距离。
+2、点击事件MotionEvent就是点击屏幕之后Android系统需要处理的对象。典型">
+<meta property="og:updated_time" content="2016-12-01T11:47:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Warpath's blog">
-<meta name="twitter:description" content="心有猛虎，细嗅蔷薇">
+<meta name="twitter:title" content="View的事件分发机制">
+<meta name="twitter:description" content="View的基本知识
+1、位置属性
+View有四个位置参数，分别是left、top、right、bottom。这四个参数相对于父控件。通过getLeft() 、getTop()、getRight()、  getBottom()方法获取。分别代表View左上角离左边、上边的距离和View右下角离上边、左边的距离。
+2、点击事件MotionEvent就是点击屏幕之后Android系统需要处理的对象。典型">
 
 
 
@@ -113,10 +123,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2016/10/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/12/01/View的事件分发机制/"/>
 
 
-  <title> 归档 | Warpath's blog </title>
+  <title> View的事件分发机制 | Warpath's blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -137,7 +147,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -215,177 +225,131 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 6 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/26/Fragment生命周期（二）/" itemprop="url">
-              
-                <span itemprop="name">Fragment生命周期（二）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-26T19:02:50+08:00"
-              content="2016-10-26" >
-          10-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/26/Fragment生命周期(一)/" itemprop="url">
-              
-                <span itemprop="name">Fragment生命周期（一）</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-26T18:40:05+08:00"
-              content="2016-10-26" >
-          10-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/18/LimitEditText遇到的问题/" itemprop="url">
-              
-                <span itemprop="name">LimitEditText遇到的问题</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-18T19:44:58+08:00"
-              content="2016-10-18" >
-          10-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="//schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/10/09/Android-EditText话题功能/" itemprop="url">
-              
-                <span itemprop="name">Android EditText话题功能</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-10-09T11:13:15+08:00"
-              content="2016-10-09" >
-          10-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                View的事件分发机制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-01T19:02:51+08:00" content="2016-12-01">
+              2016-12-01
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>View的基本知识</p>
+<p>1、位置属性</p>
+<p>View有四个位置参数，分别是left、top、right、bottom。这四个参数相对于父控件。<br>通过getLeft() 、getTop()、getRight()、  getBottom()方法获取。<br>分别代表View左上角离左边、上边的距离和View右下角离上边、左边的距离。</p>
+<p>2、点击事件<br>MotionEvent就是点击屏幕之后Android系统需要处理的对象。<br>典型的时间类型有:<br>ACTION_DOWN: 手指刚接触屏幕<br>ACTION_MOVE: 手机在屏幕上移动<br>ACTION_UP: 手指从屏幕上松开的一瞬间</p>
+<p>TouchSlop是系统所能识别出的被认为是滑动的最小距离。</p>
+<p>3、View的滑动</p>
+<ol>
+<li>使用scrollTo/scrollBy滑动，scrollTo的参数为绝对位置，scrollBy的参数为相对位置</li>
+<li>使用动画，操纵View的translationX或者translationY。既可以使用传统的View动画，也可以使用属性动画</li>
+<li>改变布局参数</li>
+</ol>
+<p>滑动方式的对比:<br>scrollTo: 适合对View内容的滑动<br>动画: 适用于没有交互和实现复杂的动画效果<br>改变布局参数: 操纵复杂，适用于有交互的View</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/26/Fragment生命周期（二）/" rel="next" title="Fragment生命周期（二）">
+                <i class="fa fa-chevron-left"></i> Fragment生命周期（二）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/09/关于Activity的生命周期/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -393,6 +357,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -412,8 +380,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -449,6 +426,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -545,11 +533,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
 
 
   

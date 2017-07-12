@@ -84,36 +84,36 @@
 
 
 
-<meta name="description" content="Fragment的生命周期详解先看官方图：
-
-
-public void onAttach(Context context)
-
-当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
+<meta name="description" content="View的参数
+mLeft   View的左上角离父控件左边的距离
+mTop    View的左上角离父控件上边的距离
+mRight  View的右下角离父控件左边的距离
+mBottom View的右下角离父控件上边的距离
+控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
+x = mLeft + trans">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Warpath's blog">
-<meta property="og:url" content="http://yoursite.com/2017/07/04/Fragment的生命周期详解/index.html">
+<meta property="og:title" content="View的基础知识">
+<meta property="og:url" content="http://yoursite.com/2017/07/12/View的基础知识/index.html">
 <meta property="og:site_name" content="Warpath's blog">
-<meta property="og:description" content="Fragment的生命周期详解先看官方图：
-
-
-public void onAttach(Context context)
-
-当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
-<meta property="og:image" content="https://developer.android.google.cn/images/fragment_lifecycle.png">
-<meta property="og:updated_time" content="2017-07-04T13:30:12.000Z">
+<meta property="og:description" content="View的参数
+mLeft   View的左上角离父控件左边的距离
+mTop    View的左上角离父控件上边的距离
+mRight  View的右下角离父控件左边的距离
+mBottom View的右下角离父控件上边的距离
+控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
+x = mLeft + trans">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
+<meta property="og:updated_time" content="2017-07-12T13:19:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Warpath's blog">
-<meta name="twitter:description" content="Fragment的生命周期详解先看官方图：
-
-
-public void onAttach(Context context)
-
-当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
-<meta name="twitter:image" content="https://developer.android.google.cn/images/fragment_lifecycle.png">
+<meta name="twitter:title" content="View的基础知识">
+<meta name="twitter:description" content="View的参数
+mLeft   View的左上角离父控件左边的距离
+mTop    View的左上角离父控件上边的距离
+mRight  View的右下角离父控件左边的距离
+mBottom View的右下角离父控件上边的距离
+控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
+x = mLeft + trans">
+<meta name="twitter:image" content="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
 
 
 
@@ -134,10 +134,10 @@ public void onAttach(Context context)
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/04/Fragment的生命周期详解/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/12/View的基础知识/"/>
 
 
-  <title>  | Warpath's blog </title>
+  <title> View的基础知识 | Warpath's blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -257,7 +257,7 @@ public void onAttach(Context context)
             
             
               
-                
+                View的基础知识
               
             
           </h1>
@@ -269,8 +269,8 @@ public void onAttach(Context context)
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-07-04T18:31:24+08:00" content="2017-07-04">
-              2017-07-04
+            <time itemprop="dateCreated" datetime="2017-07-12T20:12:54+08:00" content="2017-07-12">
+              2017-07-12
             </time>
           </span>
 
@@ -297,57 +297,22 @@ public void onAttach(Context context)
       
 
       
-        <h1 id="Fragment的生命周期详解"><a href="#Fragment的生命周期详解" class="headerlink" title="Fragment的生命周期详解"></a>Fragment的生命周期详解</h1><p>先看官方图：</p>
-<p><img src="https://developer.android.google.cn/images/fragment_lifecycle.png" alt=""></p>
-<blockquote>
-<p>public void onAttach(Context context)</p>
-</blockquote>
-<p>当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。</p>
-<p>另外，如果你复写了这个方法，必须调用super.onAttach(context)。从该方法开始就可以通过Fragment.getActivity方法获取与Fragment关联的窗口对象，但因为Fragment的控件未初始化，所以不能够操作控件。</p>
-<blockquote>
-<p>public void onCreate(Bundle savedInstanceState)</p>
-</blockquote>
-<p>在调用完onAttach之后，onCreateView之前调用。但是在Activity被重新创建，同时Fragment设置了RetainInstance时，onCreate不会被调用。注意这个方法被调用的时候Activity也有可能在创建中，所以不能在此时信赖Activity的View结构树创建完成。如果你想在Activity创建完毕后做一些操作，请使用onActivityCreated(Bundle)。<br>同样复写这个方法的时候要调用父方法。</p>
-<blockquote>
-<p>public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</p>
-</blockquote>
-<p>被调用使得Fragment可以初始化界面，当然也可以返回null。在onCreate(Bundle)和onActivityCreated(Bundle)中间调用。<br>如果你返回了一个View,当Veiw被销毁的时候onDestroyView()会被调用。<br>可以添加没有UI的Fragment，请使用add(Fragment, String)从Activity添加Fragment(为Fragment提供一个唯一的字符串“标记”)。这会添加片段，但由于它并不与Activity布局中的视图关联，因此不会收到对onCreateView()的调用。例如可以添加一个没有UI的DialogFragment作为登录验证的程序，在DialogFragment中做登录校验，在任何界面可以使用。</p>
-<blockquote>
-<p>public void onViewCreated(View view,Bundle savedInstanceState)</p>
-</blockquote>
-<p>在onCreateView返回之后马上被调用，但是在saved state被恢复到View之前。给了子类一个在View hierarchy创建之后初始化自己的一个机会。此时，Fragment的View已经和Activity中的View关联在一起。</p>
-<blockquote>
-<p>public void onActivityCreated(Bundle savedInstanceState)</p>
-</blockquote>
-<p>在Activity的onCreate方法返回之后，系统会立马调用该方法，表示窗口已经初始化完成。这里可以做最后的初始化操作，比如恢复saved state。这个时候也可以调用Fragment的setRetainInstance(boolean)去保持实例。<br>从这个时候开始，就可以在Fragment中使用getActivity().findViewById(id)来操控Activity中的View了。</p>
-<blockquote>
-<p>public void onStart()</p>
-</blockquote>
-<p>当系统调用该方法的时候，fragment已经显示在UI上，但还不能进行互动，因为onResume方法还没执行完。</p>
-<blockquote>
-<p>public void onResume()</p>
-</blockquote>
-<p>该方法为Fragment从创建到显示Android系统调用的最后一个生命周期方法，调用完该方法，Fragment就可以与用户互动了。</p>
-<blockquote>
-<p>public void onPause()</p>
-</blockquote>
-<p>同Activity</p>
-<blockquote>
-<p>public void onStop()</p>
-</blockquote>
-<p>当onStop返回的时候，fragment将从屏幕上消失。</p>
-<blockquote>
-<p>public void onDestoryView()</p>
-</blockquote>
-<p>该方法的调用意味着在onCreateView中创建的视图都将被移除。允许Fragment清理和View相关的资源。</p>
-<blockquote>
-<p>public void onDestroy()</p>
-</blockquote>
-<p>Android在Fragment不再使用时会调用该方法。</p>
-<blockquote>
-<p>public void onDetach()</p>
-</blockquote>
-<p>为Fragment生命周期中的最后一个方法，当该方法执行完后，Fragment与Activity不再有关联。</p>
+        <h3 id="View的参数"><a href="#View的参数" class="headerlink" title="View的参数"></a>View的参数</h3><p><img src="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png" alt=""></p>
+<p>mLeft   View的左上角离父控件左边的距离</p>
+<p>mTop    View的左上角离父控件上边的距离</p>
+<p>mRight  View的右下角离父控件左边的距离</p>
+<p>mBottom View的右下角离父控件上边的距离</p>
+<p>控件的width = mRight - mLeft，height = mBottom - mTop。<br>width和height都可以大于屏幕。</p>
+<p>x = mLeft + translationX</p>
+<p>y = mTop + translationY    </p>
+<p>x和y就是getX()和getY()方法的返回值，都可以为负数或者大于父控件。<br>translationX为正时向右移动，translationY为正时向下移动。</p>
+<hr>
+<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><p>mScrollX View的内容在X轴上的偏移，注意是View的内容而不是View。</p>
+<p>mScrollY是View的内容在Y轴上的偏移。</p>
+<p><code>public void scrollTo(int x, int y)</code></p>
+<p>设置View在X、Y轴上的偏移量，这个滑动是瞬间完成的。</p>
+<p><code>public void scrollBy(int x, int y)</code></p>
+<p>查看源码便知scrollBy是调用了scrollTo使View的内容有相对偏移。</p>
 
       
     </div>
@@ -373,16 +338,16 @@ public void onAttach(Context context)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/01/View的事件分发机制/" rel="next" title="View的事件分发机制">
-                <i class="fa fa-chevron-left"></i> View的事件分发机制
+              <a href="/2017/07/12/关于Activity的生命周期/" rel="next" title="关于Activity的生命周期">
+                <i class="fa fa-chevron-left"></i> 关于Activity的生命周期
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/12/关于Activity的生命周期/" rel="prev" title="关于Activity的生命周期">
-                关于Activity的生命周期 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/12/ContentProvider的使用/" rel="prev" title="ContentProvider的使用">
+                ContentProvider的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -483,7 +448,7 @@ public void onAttach(Context context)
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Fragment的生命周期详解"><span class="nav-number">1.</span> <span class="nav-text">Fragment的生命周期详解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View的参数"><span class="nav-number">1.</span> <span class="nav-text">View的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的滑动"><span class="nav-number">2.</span> <span class="nav-text">View的滑动</span></a></li></ol></div>
             
           </div>
         </section>

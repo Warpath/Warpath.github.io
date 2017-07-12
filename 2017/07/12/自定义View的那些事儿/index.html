@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="关于Activity的生命周期从Activity的创建说起，onCreate一般需要我们处理，来设置UI和进行初始化。但是onCreate里面尽量少做事情，避免程序启动太久都看不到界面。
-于此对应，Activity的最后一个回调函数是onDestroy()。如果Activity含有在onCreate调用时创建的后台线程，或者是其他有可能造成内存泄漏的资源，则应该在onDestroy()时进行资源清">
+<meta name="description" content="自定义View的那些事儿哇塞不错啊">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Warpath's blog">
-<meta property="og:url" content="http://yoursite.com/2017/06/09/关于Activity的生命周期/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/07/12/自定义View的那些事儿/index.html">
 <meta property="og:site_name" content="Warpath's blog">
-<meta property="og:description" content="关于Activity的生命周期从Activity的创建说起，onCreate一般需要我们处理，来设置UI和进行初始化。但是onCreate里面尽量少做事情，避免程序启动太久都看不到界面。
-于此对应，Activity的最后一个回调函数是onDestroy()。如果Activity含有在onCreate调用时创建的后台线程，或者是其他有可能造成内存泄漏的资源，则应该在onDestroy()时进行资源清">
-<meta property="og:updated_time" content="2017-06-09T08:54:55.000Z">
+<meta property="og:description" content="自定义View的那些事儿哇塞不错啊">
+<meta property="og:updated_time" content="2017-07-12T00:31:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Warpath's blog">
-<meta name="twitter:description" content="关于Activity的生命周期从Activity的创建说起，onCreate一般需要我们处理，来设置UI和进行初始化。但是onCreate里面尽量少做事情，避免程序启动太久都看不到界面。
-于此对应，Activity的最后一个回调函数是onDestroy()。如果Activity含有在onCreate调用时创建的后台线程，或者是其他有可能造成内存泄漏的资源，则应该在onDestroy()时进行资源清">
+<meta name="twitter:description" content="自定义View的那些事儿哇塞不错啊">
 
 
 
@@ -117,7 +114,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/09/关于Activity的生命周期/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/12/自定义View的那些事儿/"/>
 
 
   <title>  | Warpath's blog </title>
@@ -252,8 +249,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-09T16:54:55+08:00" content="2017-06-09">
-              2017-06-09
+            <time itemprop="dateCreated" datetime="2017-07-12T08:29:17+08:00" content="2017-07-12">
+              2017-07-12
             </time>
           </span>
 
@@ -280,32 +277,7 @@
       
 
       
-        <h1 id="关于Activity的生命周期"><a href="#关于Activity的生命周期" class="headerlink" title="关于Activity的生命周期"></a>关于Activity的生命周期</h1><p>从Activity的创建说起，onCreate一般需要我们处理，来设置UI和进行初始化。但是onCreate里面尽量少做事情，避免程序启动太久都看不到界面。</p>
-<p>于此对应，Activity的最后一个回调函数是onDestroy()。如果Activity含有在onCreate调用时创建的后台线程，或者是其他有可能造成内存泄漏的资源，则应该在onDestroy()时进行资源清理，杀死后台线程。</p>
-<p>当onCreate只是完成一个中转，在onCreate里面调用了finish方法时onPause和onStop方法并不会被调用。而是直接调用onDestroy()方法。</p>
-<hr>
-<p>官方Training上说，通常应该在onPause()方法里做以下事情:</p>
-<ul>
-<li>停止动画或者是其他正在运行的操作，比如视频播放</li>
-<li>提交在用户离开时期待保存的内容（例如邮件草稿）</li>
-<li>释放系统资源，如broadcast receivers,sensor(比如GPS)，或者是其他任何会影响到电量的资源</li>
-</ul>
-<p>这里有一个疑问是Guide里面写：</p>
-<blockquote>
-<p>您可以在onStart()中注册一个BroadcastReceiver以监控影响UI的变化，并在用户无法再看到您显示的内容时在onStop()中将其取消注册。</p>
-</blockquote>
-<p>到底在哪里注册BroadcastReceiver？应该是onStart()和onStop()，因为onDestroy()是并不保证被执行的。所以我们在onPause()时应该快速处理。例如资源的释放，动画的暂停，视频的暂停等等。不应该使用onPause()来保存用户改变的数据到永久存储。</p>
-<blockquote>
-<p>我们应该避免在onPause()时执行CPU-intensive的工作，例如写数据到DB，因为它会导致切换到下一个Activity变得缓慢（应该把那些heavy-load的工作放到onStop()去做）</p>
-</blockquote>
-<p>还有我们经常使用的EventBus应该在哪里注册与反注册。EventBus的官方DOC里面是在onStart()和onStop()中进行。但是有时候如果Activity自己调用finish结束，就会造成内存泄漏。</p>
-<p>再来说说什么情况下onDestory并不会被执行。当Activity调用onStop()方法，activity不再可见。一旦Activity停止，系统会在需要内存空间时摧毁它的实例。极端情况下，系统会直接杀死我们的app进程，并不执行activity的onDestroy()回调方法，因此我们需要在onStop()释放资源，从而避免内存泄漏。</p>
-<p>如果我们在onStop里面做了清除的操作，就该在onStart里面重新把那些清除掉的资源重新创建起来。</p>
-<blockquote>
-<p>跳转到其他的activity或者是点击Home都会导致当前的activity执行onSaveInstanceState，因为这种情况下的activity都是有可能会被destory并且是需要保存状态以便后续恢复使用的。而从跳转的activity点击back回到前一个activity，那么跳转前的activity是执行退栈的操作，所以这种情况下是不会执行onSaveInstanceState的，因为这个activity不可能存在需要重建的操作。</p>
-<p>onRestoreInstanceState()方法会在 onStart() 方法之后执行. 系统仅仅会在存在需要恢复的状态信息时才会调用 onRestoreInstanceState() ，因此不需要检查 Bundle 是否为null。</p>
-</blockquote>
-<p>所以onSaveInstanceState和onRestoreInstanceState并不是成对出现的。</p>
+        <h1 id="自定义View的那些事儿"><a href="#自定义View的那些事儿" class="headerlink" title="自定义View的那些事儿"></a>自定义View的那些事儿</h1><p>哇塞不错啊 </p>
 
       
     </div>
@@ -331,15 +303,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/12/01/View的事件分发机制/" rel="next" title="View的事件分发机制">
-                <i class="fa fa-chevron-left"></i> View的事件分发机制
+              <a href="/2017/07/04/Fragment的生命周期详解/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/04/Fragment的生命周期详解/" rel="prev" title="">
+              <a href="/2017/07/12/ContentProvider的使用/" rel="prev" title="">
                  <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -441,7 +413,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于Activity的生命周期"><span class="nav-number">1.</span> <span class="nav-text">关于Activity的生命周期</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义View的那些事儿"><span class="nav-number">1.</span> <span class="nav-text">自定义View的那些事儿</span></a></li></ol></div>
             
           </div>
         </section>

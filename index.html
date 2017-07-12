@@ -239,6 +239,289 @@
             
               
                 
+                <a class="post-title-link" href="/2017/07/12/ContentProvider的使用/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-12T18:41:48+08:00" content="2017-07-12">
+              2017-07-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ContentProvider的使用"><a href="#ContentProvider的使用" class="headerlink" title="ContentProvider的使用"></a>ContentProvider的使用</h1><p>ContentProvider是四大组件中使用最少的一个，当我们需要为其他应用程序提供数据时，我们就需要使用ContentProvider了。首先理解这其中ContentProvider是一个内容提供的服务端，其他使用ContentProvider提供的数据的应用为客户端。<br>ContentProvider中的内容是像一个关系型数据库一样的结构。每一行代表数据库表中的一行数据，每一列代表某一主键的数据。<br>ContentResolver方法可提供持续存储的基本CRUD功能。例如从用户字典提供程序中获取字词，需要调用ContentResolver.query()。</p>
+<pre><code>mCursor = getContentResolver().query()(
+    UserDictionary.Words.CONTENT_URI,       //Uri映射至ContentProvider中的表
+    mProjection,                            //查询的字段
+    mSelectionClause,                       //查询条件
+    mSelectionArgs,                         //查询参数
+    mSortOrder                              //排序条件
+);
+</code></pre><p>基本操作和数据库的操作很像，其中Uri是这样content://authority/table：<br>content:// 架构<br>authority  ContentProvider的授权<br>table      表的路径<br>许多ContentProvider都允许将ID值追加到URI末尾来访问表中的单个行。例如，要从用户字典中检索_ID为4的行，则可以使用:</p>
+<pre><code>Uri singleUri = ContentUris.withAppendedId(UserDictionary.Words.CONTENT_URI, 4);
+</code></pre><p>创建TestProvider继承ContentProvider，实现query、insert、delete、update方法:</p>
+<pre><code>@Override
+public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    final SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+
+    Cursor cursor = null;
+    switch (buildUriMatcher().match(uri)) {
+        case TEST:
+            cursor = db.query(TestContract.TestEntry.TABLE_NAME, projection, selection, selectionArgs, sortOrder, null, null);
+            break;
+    }
+    return cursor;
+}
+
+@Override
+public Uri insert(Uri uri, ContentValues values) {
+    final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+    Uri returnUri;
+    long _id;
+    switch (buildUriMatcher().match(uri)) {
+        case TEST:
+            _id = db.insert(TestContract.TestEntry.TABLE_NAME, null, values);
+            if (_id &gt; 0) {
+                returnUri = TestContract.TestEntry.buildUri(_id);
+            } else {
+                throw new android.database.SQLException(&quot;Failed to insert row into&quot; + uri);
+            }
+            break;
+        default:
+            throw new android.database.SQLException(&quot;Unknown uri: &quot; + uri);
+    }
+    return returnUri;
+}
+
+private final static int TEST = 100;
+
+static UriMatcher buildUriMatcher() {
+    final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+    final String authority = TestContract.CONTENT_AUTHORITY;
+
+    matcher.addURI(authority, TestContract.PATH_TEST, TEST);
+    return matcher;
+}
+</code></pre><p>不要忘了在Manifest中声明此ContentProvider:</p>
+<pre><code>&lt;provider
+        android:authorities=&quot;com.warpath.contentprovidertest&quot;
+        android:name=&quot;.contentProvider.TestProvider&quot;
+        android:readPermission=&quot;me.warpath.READ&quot;
+        android:exported=&quot;true&quot;
+        /&gt;
+</code></pre><p>authorities就是上面说的授权，readPermission代表客户端读数据时需要申请的权限，exported使provider可以被其他应用使用。至此，这个ContentProvider就可以在应用内被使用了。</p>
+<pre><code>ContentValues contentValues = new ContentValues();
+contentValues.put(TestContract.TestEntry.COLUMN_NAME, &quot;warpath&quot;);
+contentValues.put(TestContract.TestEntry._ID, System.currentTimeMillis());
+getContentResolver().insert(TestContract.TestEntry.CONTENT_URI, contentValues);
+
+Cursor cursor = getContentResolver().query(TestContract.TestEntry.CONTENT_URI, null, null, null, null);
+try {
+    Log.e(&quot;ContentProviderTest&quot;, &quot;total data number = &quot; + cursor.getCount());
+    cursor.moveToFirst();
+    Log.e(&quot;ContentProviderTest&quot;, &quot;total data number = &quot; + cursor.getString(1));
+} finally {
+    cursor.close();
+}
+</code></pre><p>如果要在其他应用中使用，需要在Manifest中声明一个权限:</p>
+<pre><code>&lt;permission android:name=&quot;me.warpath.READ&quot;
+android:protectionLevel=&quot;normal&quot;/&gt;
+</code></pre><p>其中protectionLevel声明此权限为低风险权限，在安装时不需要用户确认。<br>这时在客户端中我们就可以使用ContentProvier提供的数据了。<br>在Manifest中申请权限:</p>
+<pre><code>&lt;uses-permission android:name=&quot;me.warpath.READ&quot;/&gt;
+</code></pre><p>使用时：</p>
+<pre><code>private static final Uri CONTENT_URI = Uri.parse(&quot;content://com.warpath.contentprovidertest/test&quot;);
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    Cursor cursor = getContentResolver().query(CONTENT_URI, null, null, null, null);
+    cursor.moveToFirst();
+
+    TextView tv = (TextView) findViewById(R.id.tv_content);
+    tv.setText(cursor.getString(1));
+
+    cursor.close();
+}
+</code></pre><p>ContentResolver封装了系统提供的ContentProvider比如联系人、日历和第三方应用提供的ContentProvier。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/12/自定义View的那些事儿/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-12T08:29:17+08:00" content="2017-07-12">
+              2017-07-12
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="自定义View的那些事儿"><a href="#自定义View的那些事儿" class="headerlink" title="自定义View的那些事儿"></a>自定义View的那些事儿</h1><p>哇塞不错啊 </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/07/04/Fragment的生命周期详解/" itemprop="url">
                   未命名
                 </a>
@@ -1036,7 +1319,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

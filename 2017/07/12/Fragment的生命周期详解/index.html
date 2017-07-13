@@ -87,10 +87,10 @@
 <meta name="description" content="Fragment的生命周期详解先看官方图：
 
 
-public void onAttach(Context context)
+public void onAttach(Context context)  
 
 当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
+另外，如果你复写了这个方法，必须调用super.onAttach">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Fragment的生命周期详解">
 <meta property="og:url" content="http://yoursite.com/2017/07/12/Fragment的生命周期详解/index.html">
@@ -98,21 +98,21 @@ public void onAttach(Context context)
 <meta property="og:description" content="Fragment的生命周期详解先看官方图：
 
 
-public void onAttach(Context context)
+public void onAttach(Context context)  
 
 当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
+另外，如果你复写了这个方法，必须调用super.onAttach">
 <meta property="og:image" content="https://developer.android.google.cn/images/fragment_lifecycle.png">
-<meta property="og:updated_time" content="2017-07-12T13:22:08.000Z">
+<meta property="og:updated_time" content="2017-07-13T10:40:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fragment的生命周期详解">
 <meta name="twitter:description" content="Fragment的生命周期详解先看官方图：
 
 
-public void onAttach(Context context)
+public void onAttach(Context context)  
 
 当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。
-另外，如果你复写了这个方法，必须调用super.onAttach(c">
+另外，如果你复写了这个方法，必须调用super.onAttach">
 <meta name="twitter:image" content="https://developer.android.google.cn/images/fragment_lifecycle.png">
 
 
@@ -300,12 +300,12 @@ public void onAttach(Context context)
         <h1 id="Fragment的生命周期详解"><a href="#Fragment的生命周期详解" class="headerlink" title="Fragment的生命周期详解"></a>Fragment的生命周期详解</h1><p>先看官方图：</p>
 <p><img src="https://developer.android.google.cn/images/fragment_lifecycle.png" alt=""></p>
 <blockquote>
-<p>public void onAttach(Context context)</p>
+<p>public void onAttach(Context context)  </p>
 </blockquote>
 <p>当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。</p>
 <p>另外，如果你复写了这个方法，必须调用super.onAttach(context)。从该方法开始就可以通过Fragment.getActivity方法获取与Fragment关联的窗口对象，但因为Fragment的控件未初始化，所以不能够操作控件。</p>
 <blockquote>
-<p>public void onCreate(Bundle savedInstanceState)</p>
+<p>public void onCreate(Bundle savedInstanceState)  </p>
 </blockquote>
 <p>在调用完onAttach之后，onCreateView之前调用。但是在Activity被重新创建，同时Fragment设置了RetainInstance时，onCreate不会被调用。注意这个方法被调用的时候Activity也有可能在创建中，所以不能在此时信赖Activity的View结构树创建完成。如果你想在Activity创建完毕后做一些操作，请使用onActivityCreated(Bundle)。<br>同样复写这个方法的时候要调用父方法。</p>
 <blockquote>
@@ -373,16 +373,16 @@ public void onAttach(Context context)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/12/View的基础知识/" rel="next" title="View的基础知识">
-                <i class="fa fa-chevron-left"></i> View的基础知识
+              <a href="/2017/07/12/关于Activity的生命周期/" rel="next" title="关于Activity的生命周期">
+                <i class="fa fa-chevron-left"></i> 关于Activity的生命周期
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/12/ContentProvider的使用/" rel="prev" title="ContentProvider的使用">
-                ContentProvider的使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/12/View的基础知识/" rel="prev" title="View的基础知识">
+                View的基础知识 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

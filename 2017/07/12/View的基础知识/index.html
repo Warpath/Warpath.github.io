@@ -85,34 +85,25 @@
 
 
 <meta name="description" content="View的参数
-mLeft   View的左上角离父控件左边的距离
-mTop    View的左上角离父控件上边的距离
-mRight  View的右下角离父控件左边的距离
-mBottom View的右下角离父控件上边的距离
+mLeft   View的左上角离父控件左边的距离mTop    View的左上角离父控件上边的距离mRight  View的右下角离父控件左边的距离mBottom View的右下角离父控件上边的距离  
 控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
-x = mLeft + trans">
+x = mLeft + transl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="View的基础知识">
 <meta property="og:url" content="http://yoursite.com/2017/07/12/View的基础知识/index.html">
 <meta property="og:site_name" content="Warpath's blog">
 <meta property="og:description" content="View的参数
-mLeft   View的左上角离父控件左边的距离
-mTop    View的左上角离父控件上边的距离
-mRight  View的右下角离父控件左边的距离
-mBottom View的右下角离父控件上边的距离
+mLeft   View的左上角离父控件左边的距离mTop    View的左上角离父控件上边的距离mRight  View的右下角离父控件左边的距离mBottom View的右下角离父控件上边的距离  
 控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
-x = mLeft + trans">
+x = mLeft + transl">
 <meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
-<meta property="og:updated_time" content="2017-07-12T13:21:21.000Z">
+<meta property="og:updated_time" content="2017-07-13T12:02:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的基础知识">
 <meta name="twitter:description" content="View的参数
-mLeft   View的左上角离父控件左边的距离
-mTop    View的左上角离父控件上边的距离
-mRight  View的右下角离父控件左边的距离
-mBottom View的右下角离父控件上边的距离
+mLeft   View的左上角离父控件左边的距离mTop    View的左上角离父控件上边的距离mRight  View的右下角离父控件左边的距离mBottom View的右下角离父控件上边的距离  
 控件的width = mRight - mLeft，height = mBottom - mTop。width和height都可以大于屏幕。
-x = mLeft + trans">
+x = mLeft + transl">
 <meta name="twitter:image" content="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png">
 
 
@@ -298,21 +289,38 @@ x = mLeft + trans">
 
       
         <h3 id="View的参数"><a href="#View的参数" class="headerlink" title="View的参数"></a>View的参数</h3><p><img src="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png" alt=""></p>
-<p>mLeft   View的左上角离父控件左边的距离</p>
-<p>mTop    View的左上角离父控件上边的距离</p>
-<p>mRight  View的右下角离父控件左边的距离</p>
-<p>mBottom View的右下角离父控件上边的距离</p>
+<p>mLeft   View的左上角离父控件左边的距离<br>mTop    View的左上角离父控件上边的距离<br>mRight  View的右下角离父控件左边的距离<br>mBottom View的右下角离父控件上边的距离  </p>
 <p>控件的width = mRight - mLeft，height = mBottom - mTop。<br>width和height都可以大于屏幕。</p>
-<p>x = mLeft + translationX</p>
-<p>y = mTop + translationY    </p>
+<p>x = mLeft + translationX<br>y = mTop + translationY</p>
 <p>x和y就是getX()和getY()方法的返回值，都可以为负数或者大于父控件。<br>translationX为正时向右移动，translationY为正时向下移动。</p>
 <hr>
-<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><p>mScrollX View的内容在X轴上的偏移，注意是View的内容而不是View。</p>
-<p>mScrollY是View的内容在Y轴上的偏移。</p>
-<p><code>public void scrollTo(int x, int y)</code></p>
-<p>设置View在X、Y轴上的偏移量，这个滑动是瞬间完成的。</p>
-<p><code>public void scrollBy(int x, int y)</code></p>
-<p>查看源码便知scrollBy是调用了scrollTo使View的内容有相对偏移。</p>
+<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><h4 id="View-scrollTo-scrollBy"><a href="#View-scrollTo-scrollBy" class="headerlink" title="View#scrollTo/scrollBy"></a>View#scrollTo/scrollBy</h4><p>可以满足滑动需求，但是内容无法滑出View的边界<br>mScrollX View的内容在X轴上的偏移，注意是View的内容而不是View。<br>mScrollY是View的内容在Y轴上的偏移。</p>
+<p><code>public void scrollTo(int x, int y)</code><br>设置View在X、Y轴上的偏移量，这个滑动是瞬间完成的。</p>
+<p><code>public void scrollBy(int x, int y)</code><br>查看源码便知scrollBy是调用了scrollTo使View的内容有相对偏移。</p>
+<p>当x为正时向左边滑动，为负时向右边滑动。当y为正时向上滑动，为负时向下滑动。和XY坐标轴的方向刚好相反。<br>使用scrollTo和scrollBy的滑动都是瞬间完成。如果想做出弹性滑动的效果，需要借助一个类Scroller。  </p>
+<pre><code>Scroller mScroller = new Scroller(context);
+
+public void smoothScrollTo(int destX, int destY) {  
+    int scrollX = getScrollX();
+    int scrollY = getScrollY();
+    int deltaX = destX - scrollX;
+    int deltaY = destY - scrollY;
+    mScroller.startScroll(scrollX, scrollY, deltaX, deltaY, 3000);
+    invalidate();
+}
+
+@Override
+public void computeScroll() {
+    if (mScroller.computeScrollOffset()) {
+        scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+        postInvalidate();
+    }
+}
+</code></pre><p>Scroller并不会使View产生滑动，它只是当你告诉它要在一定的时间内将View滚动一定距离，任何时刻View存在的位置。具体的滑动，需要View调用自己的scrollTo方法实现。</p>
+<h4 id="Animation-TranslationX-TranslationY"><a href="#Animation-TranslationX-TranslationY" class="headerlink" title="Animation#TranslationX/TranslationY"></a>Animation#TranslationX/TranslationY</h4><p>可以任意滑动，但是在3.0以下会影响点击事件<br>弹性滑动使用ValueAnimator#AnimatorUpdateListener来完成。使用属性动画更方便。  </p>
+<pre><code>ObjectAnimator.ofFloat(mScrollView, &quot;translationX&quot;, -100).setDuration(3000).start();
+</code></pre><p>translationX为负时向左滑动，translationX为正时向右滑动。translationY为负时向上滑动，translationY为正时向下滑动。</p>
+<h4 id="real-Layout-changes"><a href="#real-Layout-changes" class="headerlink" title="real Layout changes"></a>real Layout changes</h4><p>并不常用，改变LayoutParams。使用较为复杂。</p>
 
       
     </div>
@@ -338,16 +346,16 @@ x = mLeft + trans">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/12/关于Activity的生命周期/" rel="next" title="关于Activity的生命周期">
-                <i class="fa fa-chevron-left"></i> 关于Activity的生命周期
+              <a href="/2017/07/12/Fragment的生命周期详解/" rel="next" title="Fragment的生命周期详解">
+                <i class="fa fa-chevron-left"></i> Fragment的生命周期详解
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/12/Fragment的生命周期详解/" rel="prev" title="Fragment的生命周期详解">
-                Fragment的生命周期详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/12/ContentProvider的使用/" rel="prev" title="ContentProvider的使用">
+                ContentProvider的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -448,7 +456,7 @@ x = mLeft + trans">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View的参数"><span class="nav-number">1.</span> <span class="nav-text">View的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的滑动"><span class="nav-number">2.</span> <span class="nav-text">View的滑动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#View的参数"><span class="nav-number">1.</span> <span class="nav-text">View的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的滑动"><span class="nav-number">2.</span> <span class="nav-text">View的滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#View-scrollTo-scrollBy"><span class="nav-number">2.1.</span> <span class="nav-text">View#scrollTo/scrollBy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Animation-TranslationX-TranslationY"><span class="nav-number">2.2.</span> <span class="nav-text">Animation#TranslationX/TranslationY</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#real-Layout-changes"><span class="nav-number">2.3.</span> <span class="nav-text">real Layout changes</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

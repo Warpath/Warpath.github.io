@@ -428,8 +428,8 @@ protected void onCreate(Bundle savedInstanceState) {
             
               
                 
-                <a class="post-title-link" href="/2017/07/12/Fragment的生命周期详解/" itemprop="url">
-                  Fragment的生命周期详解
+                <a class="post-title-link" href="/2017/07/12/View的基础知识/" itemprop="url">
+                  View的基础知识
                 </a>
               
             
@@ -472,57 +472,39 @@ protected void onCreate(Bundle savedInstanceState) {
       
         
           
-            <h1 id="Fragment的生命周期详解"><a href="#Fragment的生命周期详解" class="headerlink" title="Fragment的生命周期详解"></a>Fragment的生命周期详解</h1><p>先看官方图：</p>
-<p><img src="https://developer.android.google.cn/images/fragment_lifecycle.png" alt=""></p>
-<blockquote>
-<p>public void onAttach(Context context)</p>
-</blockquote>
-<p>当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。</p>
-<p>另外，如果你复写了这个方法，必须调用super.onAttach(context)。从该方法开始就可以通过Fragment.getActivity方法获取与Fragment关联的窗口对象，但因为Fragment的控件未初始化，所以不能够操作控件。</p>
-<blockquote>
-<p>public void onCreate(Bundle savedInstanceState)</p>
-</blockquote>
-<p>在调用完onAttach之后，onCreateView之前调用。但是在Activity被重新创建，同时Fragment设置了RetainInstance时，onCreate不会被调用。注意这个方法被调用的时候Activity也有可能在创建中，所以不能在此时信赖Activity的View结构树创建完成。如果你想在Activity创建完毕后做一些操作，请使用onActivityCreated(Bundle)。<br>同样复写这个方法的时候要调用父方法。</p>
-<blockquote>
-<p>public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</p>
-</blockquote>
-<p>被调用使得Fragment可以初始化界面，当然也可以返回null。在onCreate(Bundle)和onActivityCreated(Bundle)中间调用。<br>如果你返回了一个View,当Veiw被销毁的时候onDestroyView()会被调用。<br>可以添加没有UI的Fragment，请使用add(Fragment, String)从Activity添加Fragment(为Fragment提供一个唯一的字符串“标记”)。这会添加片段，但由于它并不与Activity布局中的视图关联，因此不会收到对onCreateView()的调用。例如可以添加一个没有UI的DialogFragment作为登录验证的程序，在DialogFragment中做登录校验，在任何界面可以使用。</p>
-<blockquote>
-<p>public void onViewCreated(View view,Bundle savedInstanceState)</p>
-</blockquote>
-<p>在onCreateView返回之后马上被调用，但是在saved state被恢复到View之前。给了子类一个在View hierarchy创建之后初始化自己的一个机会。此时，Fragment的View已经和Activity中的View关联在一起。</p>
-<blockquote>
-<p>public void onActivityCreated(Bundle savedInstanceState)</p>
-</blockquote>
-<p>在Activity的onCreate方法返回之后，系统会立马调用该方法，表示窗口已经初始化完成。这里可以做最后的初始化操作，比如恢复saved state。这个时候也可以调用Fragment的setRetainInstance(boolean)去保持实例。<br>从这个时候开始，就可以在Fragment中使用getActivity().findViewById(id)来操控Activity中的View了。</p>
-<blockquote>
-<p>public void onStart()</p>
-</blockquote>
-<p>当系统调用该方法的时候，fragment已经显示在UI上，但还不能进行互动，因为onResume方法还没执行完。</p>
-<blockquote>
-<p>public void onResume()</p>
-</blockquote>
-<p>该方法为Fragment从创建到显示Android系统调用的最后一个生命周期方法，调用完该方法，Fragment就可以与用户互动了。</p>
-<blockquote>
-<p>public void onPause()</p>
-</blockquote>
-<p>同Activity</p>
-<blockquote>
-<p>public void onStop()</p>
-</blockquote>
-<p>当onStop返回的时候，fragment将从屏幕上消失。</p>
-<blockquote>
-<p>public void onDestoryView()</p>
-</blockquote>
-<p>该方法的调用意味着在onCreateView中创建的视图都将被移除。允许Fragment清理和View相关的资源。</p>
-<blockquote>
-<p>public void onDestroy()</p>
-</blockquote>
-<p>Android在Fragment不再使用时会调用该方法。</p>
-<blockquote>
-<p>public void onDetach()</p>
-</blockquote>
-<p>为Fragment生命周期中的最后一个方法，当该方法执行完后，Fragment与Activity不再有关联。</p>
+            <h3 id="View的参数"><a href="#View的参数" class="headerlink" title="View的参数"></a>View的参数</h3><p><img src="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png" alt=""></p>
+<p>mLeft   View的左上角离父控件左边的距离<br>mTop    View的左上角离父控件上边的距离<br>mRight  View的右下角离父控件左边的距离<br>mBottom View的右下角离父控件上边的距离  </p>
+<p>控件的width = mRight - mLeft，height = mBottom - mTop。<br>width和height都可以大于屏幕。</p>
+<p>x = mLeft + translationX<br>y = mTop + translationY</p>
+<p>x和y就是getX()和getY()方法的返回值，都可以为负数或者大于父控件。<br>translationX为正时向右移动，translationY为正时向下移动。</p>
+<hr>
+<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><h4 id="View-scrollTo-scrollBy"><a href="#View-scrollTo-scrollBy" class="headerlink" title="View#scrollTo/scrollBy"></a>View#scrollTo/scrollBy</h4><p>可以满足滑动需求，但是内容无法滑出View的边界<br>mScrollX View的内容在X轴上的偏移，注意是View的内容而不是View。<br>mScrollY是View的内容在Y轴上的偏移。</p>
+<p><code>public void scrollTo(int x, int y)</code><br>设置View在X、Y轴上的偏移量，这个滑动是瞬间完成的。</p>
+<p><code>public void scrollBy(int x, int y)</code><br>查看源码便知scrollBy是调用了scrollTo使View的内容有相对偏移。</p>
+<p>当x为正时向左边滑动，为负时向右边滑动。当y为正时向上滑动，为负时向下滑动。和XY坐标轴的方向刚好相反。<br>使用scrollTo和scrollBy的滑动都是瞬间完成。如果想做出弹性滑动的效果，需要借助一个类Scroller。  </p>
+<pre><code>Scroller mScroller = new Scroller(context);
+
+public void smoothScrollTo(int destX, int destY) {  
+    int scrollX = getScrollX();
+    int scrollY = getScrollY();
+    int deltaX = destX - scrollX;
+    int deltaY = destY - scrollY;
+    mScroller.startScroll(scrollX, scrollY, deltaX, deltaY, 3000);
+    invalidate();
+}
+
+@Override
+public void computeScroll() {
+    if (mScroller.computeScrollOffset()) {
+        scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+        postInvalidate();
+    }
+}
+</code></pre><p>Scroller并不会使View产生滑动，它只是当你告诉它要在一定的时间内将View滚动一定距离，任何时刻View存在的位置。具体的滑动，需要View调用自己的scrollTo方法实现。</p>
+<h4 id="Animation-TranslationX-TranslationY"><a href="#Animation-TranslationX-TranslationY" class="headerlink" title="Animation#TranslationX/TranslationY"></a>Animation#TranslationX/TranslationY</h4><p>可以任意滑动，但是在3.0以下会影响点击事件<br>弹性滑动使用ValueAnimator#AnimatorUpdateListener来完成。使用属性动画更方便。  </p>
+<pre><code>ObjectAnimator.ofFloat(mScrollView, &quot;translationX&quot;, -100).setDuration(3000).start();
+</code></pre><p>translationX为负时向左滑动，translationX为正时向右滑动。translationY为负时向上滑动，translationY为正时向下滑动。</p>
+<h4 id="real-Layout-changes"><a href="#real-Layout-changes" class="headerlink" title="real Layout changes"></a>real Layout changes</h4><p>并不常用，改变LayoutParams。使用较为复杂。</p>
 
           
         
@@ -572,8 +554,8 @@ protected void onCreate(Bundle savedInstanceState) {
             
               
                 
-                <a class="post-title-link" href="/2017/07/12/View的基础知识/" itemprop="url">
-                  View的基础知识
+                <a class="post-title-link" href="/2017/07/12/Fragment的生命周期详解/" itemprop="url">
+                  Fragment的生命周期详解
                 </a>
               
             
@@ -616,22 +598,57 @@ protected void onCreate(Bundle savedInstanceState) {
       
         
           
-            <h3 id="View的参数"><a href="#View的参数" class="headerlink" title="View的参数"></a>View的参数</h3><p><img src="http://ofaiczjx6.bkt.clouddn.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png" alt=""></p>
-<p>mLeft   View的左上角离父控件左边的距离</p>
-<p>mTop    View的左上角离父控件上边的距离</p>
-<p>mRight  View的右下角离父控件左边的距离</p>
-<p>mBottom View的右下角离父控件上边的距离</p>
-<p>控件的width = mRight - mLeft，height = mBottom - mTop。<br>width和height都可以大于屏幕。</p>
-<p>x = mLeft + translationX</p>
-<p>y = mTop + translationY    </p>
-<p>x和y就是getX()和getY()方法的返回值，都可以为负数或者大于父控件。<br>translationX为正时向右移动，translationY为正时向下移动。</p>
-<hr>
-<h3 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h3><p>mScrollX View的内容在X轴上的偏移，注意是View的内容而不是View。</p>
-<p>mScrollY是View的内容在Y轴上的偏移。</p>
-<p><code>public void scrollTo(int x, int y)</code></p>
-<p>设置View在X、Y轴上的偏移量，这个滑动是瞬间完成的。</p>
-<p><code>public void scrollBy(int x, int y)</code></p>
-<p>查看源码便知scrollBy是调用了scrollTo使View的内容有相对偏移。</p>
+            <h1 id="Fragment的生命周期详解"><a href="#Fragment的生命周期详解" class="headerlink" title="Fragment的生命周期详解"></a>Fragment的生命周期详解</h1><p>先看官方图：</p>
+<p><img src="https://developer.android.google.cn/images/fragment_lifecycle.png" alt=""></p>
+<blockquote>
+<p>public void onAttach(Context context)  </p>
+</blockquote>
+<p>当fragment一旦被关联到Activity时被调用，是在被add或replace后。onCreate(Bundle)会接着被调用，也就是说fragment的构造函数调用时，还没有发生onAttach。</p>
+<p>另外，如果你复写了这个方法，必须调用super.onAttach(context)。从该方法开始就可以通过Fragment.getActivity方法获取与Fragment关联的窗口对象，但因为Fragment的控件未初始化，所以不能够操作控件。</p>
+<blockquote>
+<p>public void onCreate(Bundle savedInstanceState)  </p>
+</blockquote>
+<p>在调用完onAttach之后，onCreateView之前调用。但是在Activity被重新创建，同时Fragment设置了RetainInstance时，onCreate不会被调用。注意这个方法被调用的时候Activity也有可能在创建中，所以不能在此时信赖Activity的View结构树创建完成。如果你想在Activity创建完毕后做一些操作，请使用onActivityCreated(Bundle)。<br>同样复写这个方法的时候要调用父方法。</p>
+<blockquote>
+<p>public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)</p>
+</blockquote>
+<p>被调用使得Fragment可以初始化界面，当然也可以返回null。在onCreate(Bundle)和onActivityCreated(Bundle)中间调用。<br>如果你返回了一个View,当Veiw被销毁的时候onDestroyView()会被调用。<br>可以添加没有UI的Fragment，请使用add(Fragment, String)从Activity添加Fragment(为Fragment提供一个唯一的字符串“标记”)。这会添加片段，但由于它并不与Activity布局中的视图关联，因此不会收到对onCreateView()的调用。例如可以添加一个没有UI的DialogFragment作为登录验证的程序，在DialogFragment中做登录校验，在任何界面可以使用。</p>
+<blockquote>
+<p>public void onViewCreated(View view,Bundle savedInstanceState)</p>
+</blockquote>
+<p>在onCreateView返回之后马上被调用，但是在saved state被恢复到View之前。给了子类一个在View hierarchy创建之后初始化自己的一个机会。此时，Fragment的View已经和Activity中的View关联在一起。</p>
+<blockquote>
+<p>public void onActivityCreated(Bundle savedInstanceState)</p>
+</blockquote>
+<p>在Activity的onCreate方法返回之后，系统会立马调用该方法，表示窗口已经初始化完成。这里可以做最后的初始化操作，比如恢复saved state。这个时候也可以调用Fragment的setRetainInstance(boolean)去保持实例。<br>从这个时候开始，就可以在Fragment中使用getActivity().findViewById(id)来操控Activity中的View了。</p>
+<blockquote>
+<p>public void onStart()</p>
+</blockquote>
+<p>当系统调用该方法的时候，fragment已经显示在UI上，但还不能进行互动，因为onResume方法还没执行完。</p>
+<blockquote>
+<p>public void onResume()</p>
+</blockquote>
+<p>该方法为Fragment从创建到显示Android系统调用的最后一个生命周期方法，调用完该方法，Fragment就可以与用户互动了。</p>
+<blockquote>
+<p>public void onPause()</p>
+</blockquote>
+<p>同Activity</p>
+<blockquote>
+<p>public void onStop()</p>
+</blockquote>
+<p>当onStop返回的时候，fragment将从屏幕上消失。</p>
+<blockquote>
+<p>public void onDestoryView()</p>
+</blockquote>
+<p>该方法的调用意味着在onCreateView中创建的视图都将被移除。允许Fragment清理和View相关的资源。</p>
+<blockquote>
+<p>public void onDestroy()</p>
+</blockquote>
+<p>Android在Fragment不再使用时会调用该方法。</p>
+<blockquote>
+<p>public void onDetach()</p>
+</blockquote>
+<p>为Fragment生命周期中的最后一个方法，当该方法执行完后，Fragment与Activity不再有关联。</p>
 
           
         

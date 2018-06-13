@@ -84,22 +84,15 @@
 
 
 
-<meta name="description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Android EditText话题功能">
-<meta property="og:url" content="http://yoursite.com/2016/10/09/Android-EditText话题功能/index.html">
+<meta name="description" content="心有猛虎，细嗅蔷薇">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Warpath's blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Warpath's blog">
-<meta property="og:description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
-<meta property="og:updated_time" content="2016-10-09T03:16:06.000Z">
+<meta property="og:description" content="心有猛虎，细嗅蔷薇">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Android EditText话题功能">
-<meta name="twitter:description" content="很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。
-代码例子:
-12345678910111213141516171819MyTextWatcher textWatcher;EditText mEtContent">
+<meta name="twitter:title" content="Warpath's blog">
+<meta name="twitter:description" content="心有猛虎，细嗅蔷薇">
 
 
 
@@ -120,10 +113,10 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/09/Android-EditText话题功能/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
-  <title> Android EditText话题功能 | Warpath's blog </title>
+  <title> Warpath's blog </title>
 </head>
 
 <body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +137,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
@@ -221,9 +216,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -243,7 +238,10 @@
             
             
               
-                Android EditText话题功能
+                
+                <a class="post-title-link" href="/2016/10/09/Android-EditText话题功能/" itemprop="url">
+                  Android EditText话题功能
+                </a>
               
             
           </h1>
@@ -283,26 +281,24 @@
       
 
       
-        <p>很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。</p>
+        
+          
+            <p>很多App中都有话题这个功能，类似于微博的话题，以#我是话题#这种形式展现。话题的颜色区分于普通文本的颜色。一般的思路是用正则表达式查找字符串中两个#中间的文字，如果查找到就当作话题，使用Spanable的setSpan方法设置颜色高亮。</p>
 <p>代码例子:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">MyTextWatcher textWatcher;</div><div class="line">EditText mEtContent = (EditText) findViewById(R.id.et_content);</div><div class="line">textWatcher = new MyTextWatcher();</div><div class="line">mEtContent.addTextChangedListener(textWatcher);</div><div class="line"></div><div class="line">private class MyTextWatcher implements TextWatcher() &#123;</div><div class="line">  @Override</div><div class="line">  public void beforeTextChanged(CharSequence s, int start, int count, int after) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void onTextChanged(CharSequence s, int start, int before, int count) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void afterTextChanged(Editable s)&#123;</div><div class="line">      mEtContent.removeTextChangedListener(textWatcher);</div><div class="line">      TopicUtils.textviewSpan(context, mEtContent, s.toString());</div><div class="line">      mEtContent.addTextChangedListener(textWatcher);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>TopicUtils.textviewSpan();这个方法就是为话题改变颜色和添加点击事件。<br>官网上讲It is legitimate to make further changes to s<br> from this callback, but be careful not to get yourself into an infinite loop, because any changes you make will cause this method to be called again recursively.意思是在afterTextChanged里面对s进行进一步的改变是合法的，但是要小心进入死循环，因为对s的改动会使afterTextChanged方法再次被回调。<br>所以在TopicUtils.textviewSpan()执行之前removeTextChangedListener ,在执行之后重新addTextChangedListener()。<br>ok，当我以为万事大吉的时候，有bug来了。原因是部分手机在使用系统的中文输入法时，使用拼音全键这种方式时，每次点击英文字母但是没有选择词语推荐(candidates)的时候都会触发afterTextChanged这个方法。解决办法如下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">private boolean canEdit = true;</div><div class="line">private class MyTextWatcher implements TextWatcher() &#123;</div><div class="line">  @Override</div><div class="line">  public void beforeTextChanged(CharSequence s, int start, int count, int after) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void onTextChanged(CharSequence s, int start, int before, int count) &#123;</div><div class="line">  &#125;</div><div class="line">  @Override</div><div class="line">  public void afterTextChanged(Editable s)&#123;</div><div class="line">      if (canEdit) &#123;</div><div class="line">            canEdit = false;</div><div class="line">            mEtContent.removeTextChangedListener(textWatcher);</div><div class="line">            TopicUtils.textviewSpan(context, mEtContent, s.toString());</div><div class="line">            mEtContent.addTextChangedListener(textWatcher);</div><div class="line">      &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-
       
     </div>
 
@@ -310,32 +306,23 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/18/LimitEditText遇到的问题/" rel="prev" title="LimitEditText遇到的问题">
-                LimitEditText遇到的问题 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -343,10 +330,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -366,17 +349,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -412,17 +386,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -519,10 +482,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
-
-
 
   
 

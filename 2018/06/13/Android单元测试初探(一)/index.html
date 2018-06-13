@@ -1,0 +1,707 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.2" />
+
+
+
+
+
+
+<meta name="description" content="目录
+什么是单元测试
+单元测试的作用
+Android中的单元测试
+Android单元测试的实践
+目前进行的单元测试的问题
+
+
+什么是单元测试首先，让我们来了解一下单元测试是什么？以及为什么我们需要编写单元测试。
+以下是维基百科关于单元测试的定义：
+
+单元测试是一种软件测试方法，用于测试独立的源代码单元，来确定这些代码是否满足需求。
+这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Warpath's blog">
+<meta property="og:url" content="http://yoursite.com/2018/06/13/Android单元测试初探(一)/index.html">
+<meta property="og:site_name" content="Warpath's blog">
+<meta property="og:description" content="目录
+什么是单元测试
+单元测试的作用
+Android中的单元测试
+Android单元测试的实践
+目前进行的单元测试的问题
+
+
+什么是单元测试首先，让我们来了解一下单元测试是什么？以及为什么我们需要编写单元测试。
+以下是维基百科关于单元测试的定义：
+
+单元测试是一种软件测试方法，用于测试独立的源代码单元，来确定这些代码是否满足需求。
+这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-161448@2x.png">
+<meta property="og:image" content="http://cdn.infoqstatic.com/statics_s2_20171010-0642/resource/articles/mogujie-android-unit-testing/zh/resources/000.jpg">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1504173-d5f60535cc77f17d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://robolectric.org/images/logo-with-bubbles.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171016-095243@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/QQ20171012-220107@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160143@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160247@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160329@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160359@2x.png">
+<meta property="og:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160514@2x.png">
+<meta property="og:updated_time" content="2018-06-13T01:41:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Warpath's blog">
+<meta name="twitter:description" content="目录
+什么是单元测试
+单元测试的作用
+Android中的单元测试
+Android单元测试的实践
+目前进行的单元测试的问题
+
+
+什么是单元测试首先，让我们来了解一下单元测试是什么？以及为什么我们需要编写单元测试。
+以下是维基百科关于单元测试的定义：
+
+单元测试是一种软件测试方法，用于测试独立的源代码单元，来确定这些代码是否满足需求。
+这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速">
+<meta name="twitter:image" content="http://ofaiczjx6.bkt.clouddn.com/WX20171013-161448@2x.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/13/Android单元测试初探(一)/"/>
+
+
+  <title>  | Warpath's blog </title>
+</head>
+
+<body itemscope itemtype="//schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="//schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Warpath's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-13T09:40:19+08:00" content="2018-06-13">
+              2018-06-13
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li>什么是单元测试</li>
+<li>单元测试的作用</li>
+<li>Android中的单元测试</li>
+<li>Android单元测试的实践</li>
+<li>目前进行的单元测试的问题</li>
+</ol>
+<hr>
+<h3 id="什么是单元测试"><a href="#什么是单元测试" class="headerlink" title="什么是单元测试"></a>什么是单元测试</h3><p>首先，让我们来了解一下单元测试是什么？以及为什么我们需要编写单元测试。</p>
+<p>以下是维基百科关于单元测试的定义：</p>
+<blockquote>
+<p>单元测试是一种软件测试方法，用于测试独立的源代码单元，来确定这些代码是否满足需求。</p>
+<h2 id="这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。"><a href="#这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。" class="headerlink" title="这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。"></a>这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。</h2><p>我们先来看下Android Studio中的单元测试示例：</p>
+</blockquote>
+<h2 id=""><a href="#" class="headerlink" title=""></a><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-161448@2x.png" alt=""></h2><h3 id="单元测试的作用"><a href="#单元测试的作用" class="headerlink" title="单元测试的作用"></a>单元测试的作用</h3><hr>
+<h4 id="单元测试有必要吗？"><a href="#单元测试有必要吗？" class="headerlink" title="单元测试有必要吗？"></a>单元测试有必要吗？</h4><p>1.对是否有必要写单元测试的疑惑</p>
+<ul>
+<li>没有价值：不做单元测试照样开发，没有什么问题；</li>
+<li>浪费时间：写单元测试需要大量的时间，多写了很多代码，还不如写具体的实现能看到明显的效果，单元测试可能耽误开发进度；</li>
+<li>无法测试：比如无返回值的方法、UI等；</li>
+</ul>
+<hr>
+<p>2.不写单元测试会存在的问题</p>
+<ul>
+<li>要有足够的耐心：改一个参数，需要重新运行一遍程序；</li>
+<li>要有足够多的时间：必须要等到测试发现Bug后才改善；</li>
+<li>修改Bug会造成Bug：觉得不会对程序造成影响，结果还是造成了Bug，QA测试不到，到上线才发现Bug；</li>
+<li>Bug太多，程序很难稳定：上报的大多数异常问题，都是因为没有做好容错导致的，比如空指针、被除数为0、数组越界等；</li>
+</ul>
+<hr>
+<p>3.单元测试能够解决的问题</p>
+<ul>
+<li>效率：如果没有单元测试就必须把程序运行起来，一次几分钟；运行一次单元测试，最多几分钟，cover得比较全面，相比执行程序，效率要高很多。</li>
+<li>质量：对于每个最小单元，针对不同输入对应的输出有与预期做对比，能够减少因为参数导致的异常问题，同时提测和发布版本的时候，有信心；</li>
+<li>提升设计能力：为了每个单元都可测，需要将每个方法拆得尽量独立，如果不拆得足够独立，就无法测试，间接可以提高程序设计能力；</li>
+</ul>
+<hr>
+<ul>
+<li>代码重用以及重构：跑过单元测试的代码，稳定性能够得到保证，可以在其它项目或者项目重构时重复利用；在重构时有单元测试可以有信心；</li>
+<li>缩短测试周期：程序自测（开发人员写单元测试、手动跑基本功能、跑monkey都属于自测）可以提高产品提测的质量，避免返工；同时核心功能的稳定有助于缩短黑盒测试的周期。</li>
+</ul>
+<hr>
+<h3 id="Android中的单元测试"><a href="#Android中的单元测试" class="headerlink" title="Android中的单元测试"></a>Android中的单元测试</h3><hr>
+<h4 id="Android有2种单元测试方法："><a href="#Android有2种单元测试方法：" class="headerlink" title="Android有2种单元测试方法："></a>Android有2种单元测试方法：</h4><ol>
+<li>Local unit tests: 这是只用JVM来执行的测试，主要是用来测试不与操作系统交互的业务逻辑。<ul>
+<li>特点：是执行快，几秒钟的时间。不依赖设备或虚拟机，能够直接在PC上执行。</li>
+<li>代表框架：JUnit</li>
+</ul>
+</li>
+</ol>
+<hr>
+<ol>
+<li>Instrumented unit tests: 用于测试与Android API互联的逻辑。他们是在物理设备或者模拟器上执行。<ul>
+<li>特点：执行慢，需要打包运行在手机或模拟器，几分钟的时间。</li>
+<li>代表框架：Espresso</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h4 id="单元测试的步骤"><a href="#单元测试的步骤" class="headerlink" title="单元测试的步骤"></a>单元测试的步骤</h4><p>一个单元测试大概可以分为三个部分：</p>
+<ol>
+<li>setup: 即new 出待测试的类，设置一些前提条件</li>
+<li>执行动作: 即调用被测类的被测方法，并获取返回结果</li>
+<li>验证结果: 验证获取的结果跟预期的结果是一样的</li>
+</ol>
+<p>一个类的方法分两种，一种是有返回值的方法，一种是没有返回值的方法，即void方法。对有返回值的方法测起来很容易，对于没有返回值的方法呢？</p>
+<hr>
+<p>比如说有一个DataActivity，它有一个public void loadData()方法，会去调用底层的DataModel类，异步执行一些网络请求，然后更新用户界面。<br>最直接的反应是，调用loadData()方法，然后过一段时间，验证界面得到了更新。然而这种方法叫集成测试，而不是单元测试。因为它涉及到DataModel、网络服务器，以及网络返回正确时Presenter的内部处理，等等。集成测试有它的必要性，但不是我们应该关注的地方，也不是最有价值的地方。我们应该关注的是单元测试，关于这一点，有一个Test Pyramid的理论。</p>
+<hr>
+<p><img src="http://cdn.infoqstatic.com/statics_s2_20171010-0642/resource/articles/mogujie-android-unit-testing/zh/resources/000.jpg" alt="Test Pyramid"><br>Test Pyramid理论基本大意是，单元测试是基础，是我们应该花绝大多数时间去写的部分，而集成测试等应该是冰山上面能看见的那一小部分。<br>那么对于这个case，正确的单元测试方法，应该是去验证loadData()方法调用了DataModel的某个请求数据的方法，同时传递的参数是正确的。“调用了DataModel的方法，同时参数是。。。” 这个才是loadData()这个方法的“返回结果”。</p>
+<hr>
+<h4 id="Mock的概念"><a href="#Mock的概念" class="headerlink" title="Mock的概念"></a>Mock的概念</h4><p>要验证某个对象的某个方法得到调用了，就涉及到mock的使用。  </p>
+<p>mock就是创建一个虚假的、模拟的对象。如果要测试的目标对象依赖关系比较多，需要解除依赖关系，以免测试用例过于复杂。  </p>
+<p>在测试环境下，用来替换掉真实的对象。这样可以达到两个目的：</p>
+<ol>
+<li>可以随时指定mock对象的某个方法返回什么值，或执行什么样的动作。</li>
+<li>可以验证mock对象的某个方法有没有得到调用，或者是调用了多少次，参数是什么等。</li>
+</ol>
+<hr>
+<h4 id="在测试环境中使用mock：-依赖注入"><a href="#在测试环境中使用mock：-依赖注入" class="headerlink" title="在测试环境中使用mock： 依赖注入"></a>在测试环境中使用mock： 依赖注入</h4><p>接下来的问题是，如何在测试环境下，把Presenter中的DataModel换成mock的对象，而在正式的代码中，DataModel又是正常的对象呢？<br>两种方案:</p>
+<ol>
+<li>testing product flavor: 把需要mock的类写一份mock的implementation，然后通过factory提供给client。这个factory的接口在testing flavor和正式的flavor里面是一样的。</li>
+<li>依赖注入: Dagger2。关于依赖注入，请看下面的图。在测试环境，创建一个生产mock DataModule的TestModule，使用TestModule来创建Component。</li>
+</ol>
+<hr>
+<p><img src="http://upload-images.jianshu.io/upload_images/1504173-d5f60535cc77f17d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="dagger2"></p>
+<hr>
+<h4 id="那么我们选择哪种框架来做单元测试呢？"><a href="#那么我们选择哪种框架来做单元测试呢？" class="headerlink" title="那么我们选择哪种框架来做单元测试呢？"></a>那么我们选择哪种框架来做单元测试呢？</h4><p>单元测试的要点:  </p>
+<ul>
+<li>执行快，效率高；</li>
+<li>不依赖Android设备，可以直接由Jenkins周期性执行；</li>
+</ul>
+<p>但是Android中，编写代码需要面对的是组件、控件、生命周期、异步任务、消息传递等，虽然本质是SDK主动执行了一些实例的函数，但创建一个Activity并不能让它执行到resume的状态，因此需要JUnit之外的框架支持。</p>
+<hr>
+<h4 id="我们现在用到了哪些框架进行测试？"><a href="#我们现在用到了哪些框架进行测试？" class="headerlink" title="我们现在用到了哪些框架进行测试？"></a>我们现在用到了哪些框架进行测试？</h4><ul>
+<li>JUnit:<br>用一定的架构，比如MVP等等，将安卓相关的代码隔离开了，中间的Presenter或Model是纯java实现的，可以在JVM上面测试。</li>
+<li><p>Mockito:<br>Tasty mocking framework for unit tests in Java</p>
+</li>
+<li><p>Robolectric:<br><img src="http://robolectric.org/images/logo-with-bubbles.png" alt=""><br>Robolectric这个框架基本可以理解为在JVM上面实现了一套安卓的模拟环境，同时给安卓相关的类增加了其他一些增强的功能，以方便做单元测试，使用这个框架，我们就可以在JVM上面跑单元测试的时候，就可以使用安卓相关的类了。</p>
+</li>
+</ul>
+<hr>
+<h3 id="Android单元测试的实践"><a href="#Android单元测试的实践" class="headerlink" title="Android单元测试的实践"></a>Android单元测试的实践</h3><hr>
+<h1 id="Talk-is-cheap-Show-me-the-code"><a href="#Talk-is-cheap-Show-me-the-code" class="headerlink" title="Talk is cheap. Show me the code."></a><em>Talk is cheap. Show me the code.</em></h1><hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171016-095243@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20171012-220107@2x.png" alt="code"></p>
+<hr>
+<h5 id="Model层测试"><a href="#Model层测试" class="headerlink" title="Model层测试"></a>Model层测试</h5><p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160143@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160247@2x.png" alt=""></p>
+<hr>
+<p>解决异步请求问题<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160329@2x.png" alt=""></p>
+<hr>
+<p>mock数据源<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160359@2x.png" alt=""></p>
+<h5 id="TestSubscriber"><a href="#TestSubscriber" class="headerlink" title="TestSubscriber"></a>TestSubscriber</h5><p>TestSubscriber是Rxjava提供的一个Subscriber，可以用在单元测试中，执行断言，观察接收到的Event，或者包装一个mock的Subscriber。</p>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-160514@2x.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/ContentProvider的使用/" rel="next" title="ContentProvider的使用">
+                <i class="fa fa-chevron-left"></i> ContentProvider的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="//schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Warpath" />
+          <p class="site-author-name" itemprop="name">Warpath</p>
+          <p class="site-description motion-element" itemprop="description">心有猛虎，细嗅蔷薇</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目录"><span class="nav-number">1.</span> <span class="nav-text">目录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是单元测试"><span class="nav-number">1.1.</span> <span class="nav-text">什么是单元测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。"><span class="nav-number">2.</span> <span class="nav-text">这种思想是为每个重要的功能或方法写一段测试代码。它使得你能相对快速地检查出最新的代码改动是否导致了回归（regression）。例如，新的错误出现在已经测试过的程序中，并且会使得发现和解决这些错误变得更加容易。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试的作用"><span class="nav-number">3.1.</span> <span class="nav-text">单元测试的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单元测试有必要吗？"><span class="nav-number">3.1.1.</span> <span class="nav-text">单元测试有必要吗？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android中的单元测试"><span class="nav-number">3.2.</span> <span class="nav-text">Android中的单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android有2种单元测试方法："><span class="nav-number">3.2.1.</span> <span class="nav-text">Android有2种单元测试方法：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单元测试的步骤"><span class="nav-number">3.2.2.</span> <span class="nav-text">单元测试的步骤</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mock的概念"><span class="nav-number">3.2.3.</span> <span class="nav-text">Mock的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在测试环境中使用mock：-依赖注入"><span class="nav-number">3.2.4.</span> <span class="nav-text">在测试环境中使用mock： 依赖注入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#那么我们选择哪种框架来做单元测试呢？"><span class="nav-number">3.2.5.</span> <span class="nav-text">那么我们选择哪种框架来做单元测试呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我们现在用到了哪些框架进行测试？"><span class="nav-number">3.2.6.</span> <span class="nav-text">我们现在用到了哪些框架进行测试？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android单元测试的实践"><span class="nav-number">3.3.</span> <span class="nav-text">Android单元测试的实践</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Talk-is-cheap-Show-me-the-code"><span class="nav-number"></span> <span class="nav-text">Talk is cheap. Show me the code.</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Model层测试"><span class="nav-number">0.0.0.1.</span> <span class="nav-text">Model层测试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TestSubscriber"><span class="nav-number">0.0.0.2.</span> <span class="nav-text">TestSubscriber</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Warpath</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

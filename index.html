@@ -239,6 +239,151 @@
             
               
                 
+                <a class="post-title-link" href="/2018/06/13/Android单元测试初探(二)/" itemprop="url">
+                  Android单元测试初探(二)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-13T10:16:05+08:00" content="2018-06-13">
+              2018-06-13
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="Presenter层测试"><a href="#Presenter层测试" class="headerlink" title="Presenter层测试"></a>Presenter层测试</h5><hr>
+<p>这里为了单元测试，将原来ContractView中的一个方法分解为最小粒度的方法。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102235@2x.png" alt="presenter"></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102551@2x.png" alt="testPresenter"></p>
+<hr>
+<p>robolectric提供了一个模拟的RuntimeEnvironment，其中包括Application对象。可以替代App中使用的Context。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-153527@2x.png" alt=""></p>
+<hr>
+<p>测试不同状态下逻辑正确性。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102626@2x.png" alt="testPresenter"></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-110931@2x.png" alt=""></p>
+<hr>
+<p>测试数据正常、为空，请求异常的不同Case。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-165526@2x.png" alt=""></p>
+<hr>
+<p>ArgumentCaptor用来捕获方法的参数来进行验证。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-151150@2x.png" alt=""><br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-151203@2x.png" alt=""></p>
+<hr>
+<h5 id="View层测试"><a href="#View层测试" class="headerlink" title="View层测试"></a>View层测试</h5><p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155406@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155426@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155444@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-162658@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155605@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155623@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155518@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155548@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155533@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155502@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155635@2x.png" alt=""></p>
+<hr>
+<h3 id="目前进行的单元测试的问题"><a href="#目前进行的单元测试的问题" class="headerlink" title="目前进行的单元测试的问题"></a>目前进行的单元测试的问题</h3><ol>
+<li>单元测试并不是一个能直接产生回报的工程，它的运行以及覆盖率也不能直接提升代码质量，但其带来的代码控制力能够大幅度降低大规模协同开发的风险，以及进行代码重构的风险。</li>
+<li>有关陀螺仪，WIFI变化等不容易测试。</li>
+<li>对哪些代码进行单元测试？不要求对所有函数写单元测试。<br> 当前倾向于重点对Presenter及UI层做单元测试。</li>
+<li>产品如果频繁变动需求，有可能产生1.5到2倍的工作量。</li>
+<li>开发前需要mock数据，需要和服务端进行协商。</li>
+<li>单元测试的学习成本和踩坑。</li>
+</ol>
+<hr>
+<p>参考资料：</p>
+<ol>
+<li><a href="http://www.infoq.com/cn/articles/mogujie-android-unit-testing" target="_blank" rel="external">http://www.infoq.com/cn/articles/mogujie-android-unit-testing</a></li>
+<li><a href="https://tech.meituan.com/Android_unit_test.html" target="_blank" rel="external">https://tech.meituan.com/Android_unit_test.html</a></li>
+<li><a href="https://github.com/OpenDevTeam/OpenBox/blob/master/topic/%5BAndroid%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98%5D%E4%B8%8D%E5%86%99%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%B4%BB%E8%AF%A5%E4%BD%A0%E5%8A%A0%E7%8F%AD.md" target="_blank" rel="external">https://github.com/OpenDevTeam/OpenBox/blob/master/topic/%5BAndroid%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98%5D%E4%B8%8D%E5%86%99%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%B4%BB%E8%AF%A5%E4%BD%A0%E5%8A%A0%E7%8F%AD.md</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/06/13/Android单元测试初探(一)/" itemprop="url">
                   Android单元测试初探(一)
                 </a>
@@ -451,8 +596,8 @@
             
               
                 
-                <a class="post-title-link" href="/2018/06/13/Android单元测试初探(二)/" itemprop="url">
-                  Android单元测试初探(二)
+                <a class="post-title-link" href="/2018/05/14/Dagger源码解析/" itemprop="url">
+                  Dagger源码解析
                 </a>
               
             
@@ -465,8 +610,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-06-13T10:16:05+08:00" content="2018-06-13">
-              2018-06-13
+            <time itemprop="dateCreated" datetime="2018-05-14T10:16:05+08:00" content="2018-05-14">
+              2018-05-14
             </time>
           </span>
 
@@ -495,58 +640,82 @@
       
         
           
-            <h5 id="Presenter层测试"><a href="#Presenter层测试" class="headerlink" title="Presenter层测试"></a>Presenter层测试</h5><hr>
-<p>这里为了单元测试，将原来ContractView中的一个方法分解为最小粒度的方法。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102235@2x.png" alt="presenter"></p>
+            <h1 id="Dagger源码解析"><a href="#Dagger源码解析" class="headerlink" title="Dagger源码解析"></a>Dagger源码解析</h1><p>Dagger 是一款 Java 平台的依赖注入库，关于依赖注入，详细见 <a href="https://github.com/android-cn/blog/tree/master/java/dependency-injection" target="_blank" rel="external">依赖注入简介</a>。</p>
+<p>Java 的依赖注入库中，最有名的应该属 Google 的 Guice，Spring 也很有名，不过是专注于 J2EE 开发。Guice 的功能非常强大，但它是通过在运行时读取注解来实现依赖注入的，依赖的生成和注入需要依靠 Java 的反射机制，这对于对性能非常敏感的 Android 来说是一个硬伤。基于此，Dagger 应运而生。</p>
+<p>Dagger 同样使用注解来实现依赖注入，但它利用 APT(Annotation Process Tool) 在编译时生成辅助类，这些类继承特定父类或实现特定接口，程序在运行时 Dagger 加载这些辅助类，调用相应接口完成依赖生成和注入。Dagger 对于程序的性能影响非常小，因此更加适用于 Android 应用的开发。</p>
+<p>本次解析的代码基于Dagger2.16版本。</p>
 <hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102551@2x.png" alt="testPresenter"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1504173-d5f60535cc77f17d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <hr>
-<p>robolectric提供了一个模拟的RuntimeEnvironment，其中包括Application对象。可以替代App中使用的Context。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-153527@2x.png" alt=""></p>
+<h3 id="注入代码"><a href="#注入代码" class="headerlink" title="注入代码"></a>注入代码</h3><p>inject:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-182132@2x.png" alt=""><br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-182144@2x.png" alt=""></p>
 <hr>
-<p>测试不同状态下逻辑正确性。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-102626@2x.png" alt="testPresenter"></p>
+<p>Component:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-182158@2x.png" alt=""><br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-182330@2x.png" alt=""></p>
 <hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-110931@2x.png" alt=""></p>
+<p>这三个类的关系是:<br><img src="http://ofaiczjx6.bkt.clouddn.com/dagger1.png" alt=""><br>上面的代码使用了as的build-&gt;make project后，会在app/build/generated/source/apt/目录下生成对应的注入代码。</p>
 <hr>
-<p>测试数据正常、为空，请求异常的不同Case。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-165526@2x.png" alt=""></p>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-184124@2x.png" alt=""><br>下面我们来看是Car是如何被注入到ManActivity里面。</p>
 <hr>
-<p>ArgumentCaptor用来捕获方法的参数来进行验证。<br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-151150@2x.png" alt=""><br><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-151203@2x.png" alt=""></p>
-<hr>
-<h5 id="View层测试"><a href="#View层测试" class="headerlink" title="View层测试"></a>View层测试</h5><p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155406@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155426@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155444@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-162658@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155605@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155623@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155518@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155548@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155533@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155502@2x.png" alt=""></p>
-<hr>
-<p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155635@2x.png" alt=""></p>
-<hr>
-<h3 id="目前进行的单元测试的问题"><a href="#目前进行的单元测试的问题" class="headerlink" title="目前进行的单元测试的问题"></a>目前进行的单元测试的问题</h3><ol>
-<li>单元测试并不是一个能直接产生回报的工程，它的运行以及覆盖率也不能直接提升代码质量，但其带来的代码控制力能够大幅度降低大规模协同开发的风险，以及进行代码重构的风险。</li>
-<li>有关陀螺仪，WIFI变化等不容易测试。</li>
-<li>对哪些代码进行单元测试？不要求对所有函数写单元测试。<br> 当前倾向于重点对Presenter及UI层做单元测试。</li>
-<li>产品如果频繁变动需求，有可能产生1.5到2倍的工作量。</li>
-<li>开发前需要mock数据，需要和服务端进行协商。</li>
-<li>单元测试的学习成本和踩坑。</li>
-</ol>
-<hr>
-<p>参考资料：</p>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-184404@2x.png" alt=""></p>
 <ol>
-<li><a href="http://www.infoq.com/cn/articles/mogujie-android-unit-testing" target="_blank" rel="external">http://www.infoq.com/cn/articles/mogujie-android-unit-testing</a></li>
-<li><a href="https://tech.meituan.com/Android_unit_test.html" target="_blank" rel="external">https://tech.meituan.com/Android_unit_test.html</a></li>
-<li><a href="https://github.com/OpenDevTeam/OpenBox/blob/master/topic/%5BAndroid%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98%5D%E4%B8%8D%E5%86%99%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%B4%BB%E8%AF%A5%E4%BD%A0%E5%8A%A0%E7%8F%AD.md" target="_blank" rel="external">https://github.com/OpenDevTeam/OpenBox/blob/master/topic/%5BAndroid%E6%8A%80%E6%9C%AF%E4%B8%93%E9%A2%98%5D%E4%B8%8D%E5%86%99%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%B4%BB%E8%AF%A5%E4%BD%A0%E5%8A%A0%E7%8F%AD.md</a></li>
+<li>DaggerManComponent使用了构造器模式创建</li>
+<li>DaggerManComponent实现了ManComponent接口，inject方法调用了ManActivity_MembersInjector的静态方法injectMCar()。</li>
+<li>getCar()方法直接调用了new Car(new Engine());</li>
 </ol>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-184424@2x.png" alt=""></p>
+<ol>
+<li>使用Inject注解的构造函数APT会生成一个以类名开头的Factory，Factory继承了Provider，Provider只有一个方法get()。</li>
+<li>Engine_Factory是一个饿汉型的单例模式。</li>
+<li>get()方法调用了new Engine();</li>
+</ol>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-184416@2x.png" alt=""></p>
+<ol>
+<li>Car_Factory的构造函数有一个Provider的参数，在调用new Car时，将engineProvider.get()的结果当做参数传递给Car的构造函数。</li>
+</ol>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-184432@2x.png" alt=""></p>
+<ol>
+<li>ManActivity_MembersInjector实现了MembersInjector接口，实现了injectMembers方法。这个就是往ManActivity注入依赖的方法，在DaggerManComponent调用inject(ManActivity)方法时被调用。</li>
+<li>injectMCar方法将mCarProvider.get()的结果赋值给ManActivity的mCar。所以要依赖的成员不能为private。</li>
+</ol>
+<p>到这里最基本的Dagger使用解析就结束了。</p>
+<hr>
+<p>使用@Inject标注构造函数来提供依赖的对象实例的方法，不是万能的，在以下几种场景中无法使用：</p>
+<ol>
+<li>第三方库的类不能被标注</li>
+<li>构造函数中的参数必须配置</li>
+<li>抽象的类<br>这时候就需要Module，它可以理解为提供被注入的对象的类。<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-193409@2x.png" alt=""></li>
+</ol>
+<hr>
+<p>同时，ManComponent也要声明使用Module。<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-193434@2x.png" alt=""><br>重新make project后，我们看到在生成的代码目录下多了两个以ManModule开头的Factory。<br>Module中所有用@Provide注解标注的方法都会生成一个Factory。<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-194456@2x.png" alt=""></p>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-194510@2x.png" alt=""></p>
+<ol>
+<li>此Factory的作用是提供被注入的对象Engine。在provideInstance()方法中调用了proxyProvideEngine()方法。实际返回的对象是ManModule中provideEngine()的结果。</li>
+</ol>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-194520@2x.png" alt=""></p>
+<ol>
+<li>多了一个engineProvider来提供Car的构造函数的参数Engine。</li>
+</ol>
+<hr>
+<p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-194558@2x.png" alt=""></p>
+<hr>
+<ol>
+<li>在DaggerManComponent的构造器中多了一个方法 manModule(ManModuel)，用来提供需要配置的Engine或者Car。</li>
+<li>getCar（）方法返回一个Car对象。这个对象由上面提到的ManModule_ProvideCarFactory进行提供。所以这里产生的ManModule_ProvideCarFactory是一个代理类。</li>
+</ol>
+<h4 id="至此，Dagger的两种基本使用的代码就分析完了。"><a href="#至此，Dagger的两种基本使用的代码就分析完了。" class="headerlink" title="至此，Dagger的两种基本使用的代码就分析完了。"></a>至此，Dagger的两种基本使用的代码就分析完了。</h4><h4 id="为什么使用Dagger？"><a href="#为什么使用Dagger？" class="headerlink" title="为什么使用Dagger？"></a>为什么使用Dagger？</h4><ol>
+<li>解耦，将依赖之间解耦。</li>
+<li>因为已经解耦，所以方便做单元测试，尤其是Mock测试。</li>
+</ol>
+<p>下面来看代码：</p>
+<hr>
+<h6 id="带来的好处：解耦"><a href="#带来的好处：解耦" class="headerlink" title="带来的好处：解耦"></a>带来的好处：解耦</h6><p><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-200913@2x.png" alt=""><br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20180524-200923@2x.png" alt=""></p>
+<p>由于DataManager在每个进行数据操作的类中都会使用，因此一旦DataManager的构造方法发生改变，带来的修改工作是非常大的。</p>
+<hr>
+<h6 id="带来的好处-方便做单元测试"><a href="#带来的好处-方便做单元测试" class="headerlink" title="带来的好处: 方便做单元测试"></a>带来的好处: 方便做单元测试</h6><p><img src="http://ofaiczjx6.bkt.clouddn.com/WX20171013-155426@2x.png" alt=""></p>
 
           
         
@@ -1469,106 +1638,6 @@ public void computeScroll() {
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="//schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/18/LimitEditText遇到的问题/" itemprop="url">
-                  LimitEditText遇到的问题
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-18T19:44:58+08:00" content="2016-10-18">
-              2016-10-18
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>LimitEditView的需求如图<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161019-0@2x.png" alt=""><br>要实现这样的功能，我们需要继承一个EditText:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">package com.warpath.example.mytest.Widget;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.graphics.Paint;</div><div class="line">import android.text.Editable;</div><div class="line">import android.text.TextWatcher;</div><div class="line">import android.util.AttributeSet;</div><div class="line">import android.widget.EditText;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by warpath on 2016/10/19.</div><div class="line"> */</div><div class="line">public class LimitEditText extends EditText&#123;</div><div class="line">    public LimitEditText(Context context, AttributeSet attrs) &#123;</div><div class="line">        super(context, attrs);</div><div class="line">        init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    int textColor = 0xff999999;</div><div class="line"></div><div class="line">    int mMaxLine = -1;</div><div class="line">    @Override</div><div class="line">    public void setMaxLines(int maxlines) &#123;</div><div class="line">        super.setMaxLines(maxlines);</div><div class="line">        mMaxLine = maxlines;</div><div class="line">        init();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMax(int max)&#123;</div><div class="line">        this.mMax = max;</div><div class="line">        this.addTextChangedListener(new TextWatcher() &#123;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,</div><div class="line">                                          int arg3) &#123;</div><div class="line"></div><div class="line">            &#125;</div><div class="line"></div><div class="line">            @Override</div><div class="line">            public void afterTextChanged(Editable arg0) &#123;</div><div class="line">                String temp = arg0.toString();</div><div class="line">                if(temp.length()&gt;mMax)&#123;</div><div class="line">                    textColor = 0xffff0000;</div><div class="line">                &#125;else&#123;</div><div class="line">                    textColor = 0xff999999;</div><div class="line">                &#125;</div><div class="line">                LimitEditText.this.invalidate();</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    int mMax = -1;</div><div class="line">    Paint mPaint;</div><div class="line">    private void init() &#123;</div><div class="line">        mPaint = new Paint();</div><div class="line">        mPaint.setColor(0xff999999);</div><div class="line">        mPaint.setStrokeWidth(1);</div><div class="line">        float de = getContext().getResources().getDisplayMetrics().density;</div><div class="line">        mPaint.setTextSize(12*de);</div><div class="line">        mPaint.setAntiAlias(true);</div><div class="line"></div><div class="line">        if(mMaxLine==1)&#123;// single line</div><div class="line">            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight()+20, getPaddingBottom());</div><div class="line">        &#125;else&#123;</div><div class="line">            Paint.FontMetrics fm = mPaint.getFontMetrics();</div><div class="line"></div><div class="line">            float textHeight = fm.bottom-fm.top;</div><div class="line">            setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), getPaddingBottom()+(int)textHeight/2);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后就是在onDraw()里面绘制字数显示的文字了:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">int paddingBottom = getPaddingBottom();</div><div class="line">    int paddingRight = getPaddingRight();</div><div class="line">    @Override</div><div class="line">    protected void onDraw(Canvas canvas) &#123;</div><div class="line">        super.onDraw(canvas);</div><div class="line">        float x, y;</div><div class="line">        Rect r = new Rect();</div><div class="line">        getHitRect(r);</div><div class="line">        x = r.right;</div><div class="line">        y = r.bottom;</div><div class="line">        int num = mMax-getText().toString().length();</div><div class="line"></div><div class="line">        float textWidth = mPaint.measureText(num + &quot;/&quot; + mMax);</div><div class="line">        Paint.FontMetrics fm = mPaint.getFontMetrics();</div><div class="line"></div><div class="line">        y -= (fm.bottom+paddingBottom);</div><div class="line">        x  -=textWidth+paddingRight;</div><div class="line">        if(canvas.getSaveCount() &gt;0)&#123;</div><div class="line">            try&#123;</div><div class="line">                canvas.restore();</div><div class="line">            &#125;catch(Exception e)&#123;</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        mPaint.setColor(textColor);</div><div class="line">        canvas.drawText(num + &quot;/&quot; + mMax, x, y, mPaint);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>这个时候我们的功能已经好了，哈哈。放入项目,发现并没有出现我们想要的效果:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161019-2@2x.png" alt=""><br>仔细调试代码发现getHitRect()获取的是EditText在父控件中的坐标，但是我的父控件中还有一个标题在EditText上面。因此r.bottom的值比EditText的高大了标题的高度，超出canvas的范围了。于是加上下面一句:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">y -= (fm.bottom+paddingBottom);</div><div class="line">   y -= r.bottom - canvas.getHeight();//实际上canvas的高度有可能小于EditText矩形在界面上的范围r.bottom</div><div class="line">   x  -=textWidth+paddingRight;</div></pre></td></tr></table></figure>
-<p>再运行:<br><img src="http://ofaiczjx6.bkt.clouddn.com/QQ20161019-3@2x.png" alt=""><br>这就是我们想要的效果了！</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1614,7 +1683,7 @@ public void computeScroll() {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
